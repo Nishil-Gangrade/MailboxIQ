@@ -1,0 +1,6 @@
+{
+  "categorization": "Categorize as Important or Spam only.",
+  "action_item": "Extract tasks from the email and respond ONLY with a JSON array of objects like [{\"task\":\"...\",\"deadline\":\"YYYY-MM-DD or null\"}]. If none, return [].",
+  "auto_reply": "Draft a polite reply using the user's specified tone. If it's a meeting request, ask for an agenda. Return JSON: {\"subject\":\"...\",\"body\":\"...\",\"suggested_followups\":[\"...\"]}.",
+  "agent_system": "You are an email assistant that uses stored prompts. Answer concisely and output JSON when requested."
+}

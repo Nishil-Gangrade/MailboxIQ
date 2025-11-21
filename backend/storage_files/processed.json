@@ -1,0 +1,106 @@
+[
+  {
+    "email_id": "1",
+    "category": "Important",
+    "action_items": [
+      {
+        "task": "Hi team, we need to merge feature branch X by Nov 18",
+        "deadline": null
+      },
+      {
+        "task": "Can you confirm estimates? Also prepare test cases and assign reviewers",
+        "deadline": null
+      }
+    ]
+  },
+  {
+    "email_id": "2",
+    "category": "Newsletter",
+    "action_items": []
+  },
+  {
+    "email_id": "3",
+    "category": "To-Do",
+    "action_items": [
+      {
+        "task": "Please submit your timesheets by EOD Friday",
+        "deadline": null
+      }
+    ]
+  },
+  {
+    "email_id": "4",
+    "category": "To-Do",
+    "action_items": [
+      {
+        "task": "Please RSVP by Nov 20 if you'd like to attend",
+        "deadline": null
+      }
+    ]
+  },
+  {
+    "email_id": "5",
+    "category": "To-Do",
+    "action_items": [
+      {
+        "task": "Please propose times",
+        "deadline": null
+      }
+    ]
+  },
+  {
+    "email_id": "6",
+    "category": "Spam",
+    "action_items": [
+      {
+        "task": "Claim your prize by clicking this suspicious link and entering your details",
+        "deadline": null
+      }
+    ]
+  },
+  {
+    "email_id": "7",
+    "category": "To-Do",
+    "action_items": [
+      {
+        "task": "Please deliver the module demo by Nov 15",
+        "deadline": null
+      }
+    ]
+  },
+  {
+    "email_id": "8",
+    "category": "Important",
+    "action_items": []
+  },
+  {
+    "email_id": "9",
+    "category": "Important",
+    "action_items": []
+  },
+  {
+    "email_id": "10",
+    "category": "To-Do",
+    "action_items": [
+      {
+        "task": "Please review PR #432 and leave comments by tomorrow so we can merge on Friday",
+        "deadline": null
+      }
+    ]
+  },
+  {
+    "email_id": "11",
+    "category": "To-Do",
+    "action_items": [
+      {
+        "task": "Please confirm receipt and expected payment date",
+        "deadline": null
+      }
+    ]
+  },
+  {
+    "email_id": "12",
+    "category": "To-Do",
+    "action_items": []
+  }
+]

@@ -1,2 +1,6 @@
-flask 
-flask-cors 
+flask
+flask-cors
+openai
+python-dotenv
+google-generativeai
+python-dotenv

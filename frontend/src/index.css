@@ -1,3 +1,20 @@
 @tailwind base;
 @tailwind components;
 @tailwind utilities;
+body {
+  background: radial-gradient(circle at top left, #0f172a, #020617);
+}
+
+button:hover {
+  filter: brightness(1.15);
+  transition: 0.2s ease;
+}
+
+*::-webkit-scrollbar {
+  width: 6px;
+}
+
+*::-webkit-scrollbar-thumb {
+  background: #334155;
+  border-radius: 8px;
+}

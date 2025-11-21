@@ -1,0 +1,86 @@
+[
+  {
+    "id": "1",
+    "sender": "project.manager@acme.com",
+    "subject": "Action required: Q4 feature merge and timeline",
+    "timestamp": "2025-11-10T09:32:00+05:30",
+    "body": "Hi team, we need to merge feature branch X by Nov 18. Can you confirm estimates? Also prepare test cases and assign reviewers."
+  },
+  {
+    "id": "2",
+    "sender": "news@weekly.dev",
+    "subject": "Weekly Dev Newsletter: Top 10 libraries",
+    "timestamp": "2025-11-08T12:00:00+05:30",
+    "body": "Hello subscriber — here are this week's top libraries and links to tutorials."
+  },
+  {
+    "id": "3",
+    "sender": "hr@company.com",
+    "subject": "Reminder: Submit timesheets by Friday",
+    "timestamp": "2025-11-09T08:00:00+05:30",
+    "body": "Please submit your timesheets by EOD Friday. This is required for payroll processing."
+  },
+  {
+    "id": "4",
+    "sender": "events@community.org",
+    "subject": "Invitation: Local hackathon (Nov 25)",
+    "timestamp": "2025-11-01T16:12:00+05:30",
+    "body": "You're invited to our local hackathon. Please RSVP by Nov 20 if you'd like to attend."
+  },
+  {
+    "id": "5",
+    "sender": "ceo@startup.io",
+    "subject": "Quick sync: product roadmap decisions",
+    "timestamp": "2025-11-05T10:45:00+05:30",
+    "body": "Let's arrange a 30-min call to finalize roadmap priorities. Please propose times."
+  },
+  {
+    "id": "6",
+    "sender": "spam@badsite.ru",
+    "subject": "You won a prize! Click now",
+    "timestamp": "2025-10-30T05:00:00+05:30",
+    "body": "Claim your prize by clicking this suspicious link and entering your details."
+  },
+  {
+    "id": "7",
+    "sender": "client@bigcorp.com",
+    "subject": "Project update and action items",
+    "timestamp": "2025-11-02T14:22:00+05:30",
+    "body": "Please deliver the module demo by Nov 15. Also update the docs and send test data."
+  },
+  {
+    "id": "8",
+    "sender": "marketing@shop.com",
+    "subject": "Black Friday deals just for you",
+    "timestamp": "2025-11-10T06:00:00+05:30",
+    "body": "Exclusive discounts for our subscribers. Use code SAVE50 at checkout."
+  },
+  {
+    "id": "9",
+    "sender": "support@service.com",
+    "subject": "Support ticket update #4921",
+    "timestamp": "2025-11-07T11:30:00+05:30",
+    "body": "We are following up on your ticket. Could you provide logs and reproduction steps?"
+  },
+  {
+    "id": "10",
+    "sender": "colleague@work.com",
+    "subject": "Can you review my PR?",
+    "timestamp": "2025-11-09T19:05:00+05:30",
+    "body": "Please review PR #432 and leave comments by tomorrow so we can merge on Friday."
+  },
+  {
+    "id": "11",
+    "sender": "partner@vendor.com",
+    "subject": "Invoice for October",
+    "timestamp": "2025-11-03T09:00:00+05:30",
+    "body": "Attached invoice for October. Please confirm receipt and expected payment date."
+  },
+  {
+    "id": "12",
+    "sender": "team.lead@acme.com",
+    "subject": "Standup moved to 10:30 tomorrow",
+    "timestamp": "2025-11-10T18:00:00+05:30",
+    "body": "The daily standup is moved to 10:30 for tomorrow due to a schedule conflict."
+  }
+]
