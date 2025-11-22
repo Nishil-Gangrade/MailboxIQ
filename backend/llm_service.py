@@ -1,131 +1,235 @@
+# llm_service.py — clean, stable, strict JSON output
+
 import os
 import json
 import re
+import requests
 import google.generativeai as genai
 
-GEMINI_KEY = os.getenv("GEMINI_API_KEY")
-
-if GEMINI_KEY:
-    genai.configure(api_key=GEMINI_KEY)
-
 class LLMService:
-    def __init__(self, storage):
+    def __init__(self, storage, model_choice="gemini-2.5-flash"):
         self.storage = storage
-        self.use_llm = GEMINI_KEY is not None
-        if self.use_llm:
-            self.model = genai.GenerativeModel("gemini-1.5-flash")
+        self.api_key = os.getenv("GEMINI_API_KEY")
 
-    # -----------------------------
-    # 1. CATEGORIZATION
-    # -----------------------------
-    def categorize(self, email, prompt_text):
-        if self.use_llm:
+        self.use_llm = False
+        self.model_id = f"models/{model_choice}"
+        self.http_model_path = f"{self.model_id}:generateContent"
+
+        if self.api_key:
             try:
-                prompt = f"""
-{prompt_text}
+                genai.configure(api_key=self.api_key)
+                self.model = genai.GenerativeModel(self.model_id)
+                self.use_llm = True
+            except:
+                self.use_llm = True
+        else:
+            self.use_llm = False
 
-Email:
-Subject: {email.get("subject", "")}
-Body: {email.get("body", "")}
+    def _extract_text(self, resp):
+        if resp is None:
+            return ""
 
-Respond with ONLY ONE WORD category.
-"""
-                response = self.model.generate_content(prompt)
-                content = response.text.strip().split()[0]
-                return content
+        try:
+            if hasattr(resp, "text") and isinstance(resp.text, str):
+                return resp.text.strip()
+        except:
+            pass
+
+        if isinstance(resp, dict):
+            try:
+                cand = resp.get("candidates", [])
+                if cand:
+                    parts = cand[0]["content"]["parts"]
+                    if parts and "text" in parts[0]:
+                        return parts[0]["text"].strip()
             except:
                 pass
 
-        # ---- fallback heuristic ----
-        text = (email["subject"] + " " + email["body"]).lower()
-        if "newsletter" in text:
-            return "Newsletter"
-        if "prize" in text or "click" in text:
-            return "Spam"
-        if "please" in text or "urgent" in text or "due" in text:
-            return "To-Do"
+        if isinstance(resp, str):
+            return resp.strip()
+
+        return str(resp)
+
+    def _gemini_http(self, prompt):
+        if not self.api_key:
+            return None
+
+        url = f"https://generativelanguage.googleapis.com/v1beta/models/{self.http_model_path}"
+        headers = {
+            "Content-Type": "application/json",
+            "x-goog-api-key": self.api_key,
+        }
+        body = {"contents": [{"parts": [{"text": prompt}]}]}
+
+        res = requests.post(url, json=body, headers=headers)
+        if res.status_code != 200:
+            print("Gemini HTTP Error:", res.text)
+            return None
+
+        try:
+            return self._extract_text(res.json())
+        except:
+            return None
+
+    def categorize(self, email, prompt_text):
+        prompt = f"""{prompt_text}
+
+Email:
+Subject: {email.get('subject','')}
+Body: {email.get('body','')}
+
+Respond with ONLY ONE WORD category:
+- Important
+- To-Do
+- Spam
+- Newsletter
+"""
+
+        text = None
+        if self.use_llm:
+            try:
+                resp = self.model.generate_content(prompt)
+                text = self._extract_text(resp)
+            except:
+                text = self._gemini_http(prompt)
+
+        if text:
+            word = text.strip().split()[0].lower()
+            if word in ["important", "newsletter", "spam"]:
+                return word.capitalize()
+            if word in ["todo", "to-do", "to_do"]:
+                return "To-Do"
+
+        t = (email.get("subject","") + " " + email.get("body","")).lower()
+        if "newsletter" in t: return "Newsletter"
+        if "prize" in t or "click" in t or "congrat" in t: return "Spam"
+        if any(x in t for x in ["please", "urgent", "can you", "deadline"]): return "To-Do"
         return "Important"
 
-    # -----------------------------
-    # 2. ACTION ITEM EXTRACTION
-    # -----------------------------
     def extract_actions(self, email, prompt_text):
-        if self.use_llm:
-            try:
-                prompt = f"""
-{prompt_text}
+        prompt = f"""{prompt_text}
 
 Email:
-{email.get("body", "")}
+{email['body']}
 
-Return ONLY valid JSON array:
-[{{"task":"...","deadline":"YYYY-MM-DD or null"}}]
+Return ONLY JSON:
+[
+  {{"task": "...", "deadline": "YYYY-MM-DD or null"}}
+]
 """
-                response = self.model.generate_content(prompt)
-                text = response.text
 
-                json_match = re.search(r"\[.*\]", text, re.S)
-                if json_match:
-                    return json.loads(json_match.group(0))
-
+        text = None
+        if self.use_llm:
+            try:
+                resp = self.model.generate_content(prompt)
+                text = self._extract_text(resp)
             except:
-                pass
+                text = self._gemini_http(prompt)
 
-        # fallback heuristic
-        body = email.get("body", "")
+        if text:
+            match = re.search(r"\[[\s\S]*\]", text)
+            if match:
+                try:
+                    arr = json.loads(match.group(0))
+                    cleaned = [{"task": x.get("task"), "deadline": x.get("deadline")} for x in arr]
+                    return cleaned
+                except:
+                    pass
+
         tasks = []
-        for line in body.split("."):
-            if any(k in line.lower() for k in ["please", "can you", "deadline", "by"]):
+        for line in re.split(r"[.\n]", email.get("body","")):
+            if any(k in line.lower() for k in ["please", "can you", "deadline", "by "]):
                 tasks.append({"task": line.strip(), "deadline": None})
+
         return tasks
 
-    # -----------------------------
-    # 3. AGENT CHAT / DRAFTING
-    # -----------------------------
-    def agent_query(self, email, instruction, tone):
-        if self.use_llm:
-            try:
-                prompts = self.storage.read_json("prompts.json")
-                system_prompt = prompts.get("agent_system", "")
-
-                email_text = f"""
-Email:
-Subject: {email.get("subject","")}
-From: {email.get("sender","")}
-Body:
-{email.get("body","")}
-""" if email else "No email selected."
-
-                prompt = f"""
-{system_prompt}
-
-Task: {instruction}
-Tone: {tone}
-
-{email_text}
-"""
-
-                response = self.model.generate_content(prompt)
-                return response.text.strip()
-
-            except:
-                pass
-
-        # fallback
+    def agent_query(self, email, instruction, tone="neutral"):
         if not email:
-            return "No email selected."
+            return {"type": "error", "response": "No email selected."}
 
+        prompts = self.storage.read_json("prompts.json") or {}
+
+        # SUMMARY
         if "summar" in instruction.lower():
-            return email.get("body","")[:200]
+            prompt = f"""{prompts.get("summarization", "Summarize:")}
 
+Email:
+{email['body']}
+
+Summary:
+"""
+            text = None
+
+            if self.use_llm:
+                try:
+                    resp = self.model.generate_content(prompt)
+                    text = self._extract_text(resp)
+                except:
+                    text = self._gemini_http(prompt)
+
+            text = str(text or email["body"])
+            return {"status":"ok","type":"summary","response": text}
+
+        # TASKS
         if "task" in instruction.lower():
-            return self.extract_actions(email, "")
-
-        if "draft" in instruction.lower() or "reply" in instruction.lower():
+            tasks = self.extract_actions(email, prompts.get("action_item", "Extract tasks"))
+            formatted = "\n".join(f"- {t['task']}" for t in tasks)
             return {
-                "subject": f"Re: {email['subject']}",
-                "body": "Hi,\n\nThanks for the email. Will check and get back.\n\nRegards,",
-                "suggested_followups": []
+                "status":"ok",
+                "type":"tasks",
+                "response": formatted,
+                "data": tasks
             }
 
-        return "I can summarize, extract tasks, or write drafts."
+        # DRAFTS
+        if "draft" in instruction.lower() or "reply" in instruction.lower():
+            prompt = f"""{prompts.get("auto_reply", "Write a reply")}
+
+Tone: {tone}
+
+Email:
+{email['body']}
+
+Reply:
+Subject:
+Body:
+"""
+
+            text = None
+            if self.use_llm:
+                try:
+                    resp = self.model.generate_content(prompt)
+                    text = self._extract_text(resp)
+                except:
+                    text = self._gemini_http(prompt)
+
+            text = text or ""
+            subject = f"Re: {email['subject']}"
+            body = text
+
+            return {
+                "status":"ok",
+                "type":"draft",
+                "response": {
+                    "subject": subject,
+                    "body": body
+                }
+            }
+
+        # GENERIC INSTRUCTION
+        prompt = f"""Instruction: {instruction}
+
+Email:
+{email['body']}
+
+Answer:"""
+
+        text = None
+        if self.use_llm:
+            try:
+                resp = self.model.generate_content(prompt)
+                text = self._extract_text(resp)
+            except:
+                text = self._gemini_http(prompt)
+
+        return {"status":"ok","type":"custom","response": str(text or "")}

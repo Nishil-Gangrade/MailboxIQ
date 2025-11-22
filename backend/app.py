@@ -3,6 +3,8 @@ from flask_cors import CORS
 import os
 from storage import Storage
 from llm_service import LLMService
+from dotenv import load_dotenv
+load_dotenv()
 
 BASE_DIR = os.path.dirname(os.path.abspath(__file__))
 storage_dir = os.path.join(BASE_DIR, "storage_files")
