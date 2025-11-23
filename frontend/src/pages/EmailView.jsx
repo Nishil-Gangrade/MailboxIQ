@@ -1,5 +1,5 @@
 import toast from "react-hot-toast";
-import { agentQuery, createDraft } from "../utils/api";
+import { agentQuery } from "../utils/api";
 import Spinner from "../components/Spinner";
 import React, { useState, useEffect } from "react";
 
@@ -13,13 +13,13 @@ export default function EmailView({ email }) {
     setTasks(null);
   }, [email.id]);
 
-  // -----------------------------
-  // AGENT BUTTON HANDLER
-  // -----------------------------
+  // --------------------------------------------------
+  // AGENT HANDLER
+  // --------------------------------------------------
   async function askAgent(instruction) {
     setLoading(true);
-    setTasks(null);
     setText("");
+    setTasks(null);
 
     try {
       const res = await agentQuery({
@@ -27,79 +27,84 @@ export default function EmailView({ email }) {
         instruction,
       });
 
+      console.log("AGENT RAW RESPONSE =>", res);
+
+      // Backend now returns FLAT:
+      // { status, type, response, data? }
       const { type, response, data } = res;
 
-      // 🔥 SAFETY FIX — ALWAYS MAKE TEXT A STRING
-      const safeText =
-        typeof response === "object" && !Array.isArray(response)
-          ? JSON.stringify(response, null, 2)
-          : response;
+      if (type === "summary" || type === "custom" || type === "global") {
+        setText(response);
+      }
 
-      if (type === "summary") {
-        setText(safeText);
-      } else if (type === "tasks") {
+      else if (type === "tasks") {
         setTasks(data || []);
-      } else if (type === "draft") {
-        const draftText = `Subject: ${response.subject}\n\n${response.body}`;
-        setText(draftText);
-      } else {
-        setText(safeText);
+      }
+
+      else if (type === "draft") {
+        const formatted = `Subject: ${response.subject}\n\n${response.body}`;
+        setText(formatted);
       }
 
       toast.success("Agent response ready");
-    } catch {
+    } catch (e) {
+      console.error(e);
       toast.error("Something went wrong");
     }
 
     setLoading(false);
   }
 
-  // -----------------------------
+  // --------------------------------------------------
   // GENERATE DRAFT
-  // -----------------------------
+  // --------------------------------------------------
   async function generateDraft() {
     setLoading(true);
 
     try {
       const res = await agentQuery({
         email_id: email.id,
-        instruction: "Draft a reply",
+        instruction: "draft a reply",
       });
 
-      await createDraft({
-        email_id: email.id,
-        subject: res.response.subject,
-        body: res.response.body,
-        suggested_followups: [],
-      });
+      console.log("DRAFT RAW =>", res);
 
-      toast.success("Draft saved");
-    } catch {
-      toast.error("Draft creation failed");
+      const { response } = res;
+
+      const draftText = `Subject: ${response.subject}\n\n${response.body}`;
+      setText(draftText);
+
+      toast.success("Draft generated");
+    } catch (e) {
+      console.error(e);
+      toast.error("Failed to generate draft");
     }
 
     setLoading(false);
   }
 
-  // -----------------------------
+  // --------------------------------------------------
   // UI
-  // -----------------------------
+  // --------------------------------------------------
   return (
     <div>
       <h2 className="text-2xl font-bold">{email.subject}</h2>
       <p className="text-sm text-slate-400">{email.sender}</p>
+
       <p className="mt-4">{email.body}</p>
 
       <div className="flex gap-3 mt-5">
+
+        {/* FIXED INSTRUCTIONS */}
         <button
-          onClick={() => askAgent("Summarize")}
+          onClick={() => askAgent("summarize")}
           className="bg-cyan-600 px-4 py-2 rounded flex items-center gap-2"
         >
           {loading && <Spinner />} Summarize
         </button>
 
         <button
-          onClick={() => askAgent("Extract tasks")}
+          onClick={() => askAgent("extract tasks")}
           className="bg-purple-600 px-4 py-2 rounded flex items-center gap-2"
         >
           {loading && <Spinner />} What tasks?

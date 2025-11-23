@@ -100,7 +100,8 @@ def agent_query():
     if email_id:
         email = next((e for e in inbox if str(e.get("id")) == str(email_id)), None)
     response = llm.agent_query(email, instruction, tone)
-    return jsonify({"status": "ok", "response": response})
+    return jsonify(response)
+
 
 # ----- Drafts endpoints -----
 @app.route("/drafts", methods=["GET"])
