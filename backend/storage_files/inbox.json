@@ -4,83 +4,83 @@
     "sender": "project.manager@acme.com",
     "subject": "Action required: Q4 feature merge and timeline",
     "timestamp": "2025-11-10T09:32:00+05:30",
-    "body": "Hi team, we need to merge feature branch X by Nov 18. Can you confirm estimates? Also prepare test cases and assign reviewers."
+    "body": "Hi team,\n\nAs discussed in last week's planning, we need to merge feature branch X into the main codebase by November 18th so that we stay aligned with the Q4 release schedule.\n\nPlease confirm your time estimates for the merge effort by EOD tomorrow (Nov 11). Additionally, ensure that:\n• All unit and integration test cases are updated\n• Regression scenarios are prepared\n• Code reviewers are assigned by Nov 13\n\nLet me know if any blockers come up."
   },
   {
     "id": "2",
     "sender": "news@weekly.dev",
     "subject": "Weekly Dev Newsletter: Top 10 libraries",
     "timestamp": "2025-11-08T12:00:00+05:30",
-    "body": "Hello subscriber — here are this week's top libraries and links to tutorials."
+    "body": "Hello subscriber,\n\nHere is your weekly development newsletter (Week of Nov 8, 2025).\nThis edition covers:\n• Top 10 trending JavaScript libraries this month\n• A deep-dive tutorial on WebAssembly in 2025\n• Performance tips for React Server Components\n• Community spotlight events between Nov 10–15\n\nHappy reading!"
   },
   {
     "id": "3",
     "sender": "hr@company.com",
     "subject": "Reminder: Submit timesheets by Friday",
     "timestamp": "2025-11-09T08:00:00+05:30",
-    "body": "Please submit your timesheets by EOD Friday. This is required for payroll processing."
+    "body": "Friendly reminder to submit your timesheets by EOD Friday (Nov 14). This is required for payroll processing for the November cycle. Late submissions will delay payments for the month.\n\nPlease complete your entry at the earliest."
   },
   {
     "id": "4",
     "sender": "events@community.org",
     "subject": "Invitation: Local hackathon (Nov 25)",
     "timestamp": "2025-11-01T16:12:00+05:30",
-    "body": "You're invited to our local hackathon. Please RSVP by Nov 20 if you'd like to attend."
+    "body": "You're invited to participate in our annual Local Community Hackathon happening on November 25th (Saturday) from 9 AM to 9 PM.\n\nWe have exciting tracks this year including:\n• AI for Social Good\n• IoT in Daily Life\n• Sustainability through Tech\n\nPlease RSVP by November 20 so we can confirm logistics, food arrangements, and team pairings.\nWe hope to see you there!"
   },
   {
     "id": "5",
     "sender": "ceo@startup.io",
     "subject": "Quick sync: product roadmap decisions",
     "timestamp": "2025-11-05T10:45:00+05:30",
-    "body": "Let's arrange a 30-min call to finalize roadmap priorities. Please propose times."
+    "body": "Hi,\n\nWe need a quick 30-minute sync this week to finalize product roadmap priorities for the December sprint.\nPlease propose 2–3 available time slots between Nov 10–13.\nWe will be reviewing planned features, backlog grooming items, and dependencies with the design team.\n\nLet me know what works for you."
   },
   {
     "id": "6",
     "sender": "spam@badsite.ru",
     "subject": "You won a prize! Click now",
     "timestamp": "2025-10-30T05:00:00+05:30",
-    "body": "Claim your prize by clicking this suspicious link and entering your details."
+    "body": "Congratulations! You’ve been selected for an exclusive reward.\n\nClick the link below to claim your prize and enter your personal details.\n\n(External suspicious link omitted)\n\nAct fast — offer expires today!"
   },
   {
     "id": "7",
     "sender": "client@bigcorp.com",
     "subject": "Project update and action items",
     "timestamp": "2025-11-02T14:22:00+05:30",
-    "body": "Please deliver the module demo by Nov 15. Also update the docs and send test data."
+    "body": "Hi team,\n\nAs part of milestone 2 delivery, please ensure the following before Nov 15:\n• Submit the working module demo\n• Update the complete technical documentation\n• Share the test dataset and validation notes\n• Confirm API endpoint changes with the integration team\n\nReach out if you need support or deadline adjustments."
   },
   {
     "id": "8",
     "sender": "marketing@shop.com",
     "subject": "Black Friday deals just for you",
     "timestamp": "2025-11-10T06:00:00+05:30",
-    "body": "Exclusive discounts for our subscribers. Use code SAVE50 at checkout."
+    "body": "Hey there!\n\nOur biggest Black Friday Sale is now live from Nov 10–30.\nEnjoy up to 70% off on electronics, accessories, and premium bundles.\nUse the code SAVE50 to avail an additional discount during checkout.\n\nHurry — limited stock available!"
   },
   {
     "id": "9",
     "sender": "support@service.com",
     "subject": "Support ticket update #4921",
     "timestamp": "2025-11-07T11:30:00+05:30",
-    "body": "We are following up on your ticket. Could you provide logs and reproduction steps?"
+    "body": "Hello,\n\nWe're following up on your support ticket #4921 regarding service instability.\nCould you please share:\n• Latest application logs\n• Reproduction steps or a short video\n• Environment details (OS/version)\n\nOnce we receive this, we can escalate it to the engineering team and provide a resolution ETA."
   },
   {
     "id": "10",
     "sender": "colleague@work.com",
     "subject": "Can you review my PR?",
     "timestamp": "2025-11-09T19:05:00+05:30",
-    "body": "Please review PR #432 and leave comments by tomorrow so we can merge on Friday."
+    "body": "Hey,\n\nI've pushed PR #432 with the final changes to the analytics module.\nCould you review it and leave your comments by tomorrow morning (Nov 10)?\nWe want to merge it before the planned Friday deployment.\n\nThanks!"
   },
   {
     "id": "11",
     "sender": "partner@vendor.com",
     "subject": "Invoice for October",
     "timestamp": "2025-11-03T09:00:00+05:30",
-    "body": "Attached invoice for October. Please confirm receipt and expected payment date."
+    "body": "Hi,\n\nAttached is the invoice for the October 2025 billing cycle.\nPlease confirm:\n• Receipt of the invoice\n• Expected payment date\n• Whether any additional documents are required for processing\n\nLooking forward to your confirmation."
   },
   {
     "id": "12",
     "sender": "team.lead@acme.com",
     "subject": "Standup moved to 10:30 tomorrow",
     "timestamp": "2025-11-10T18:00:00+05:30",
-    "body": "The daily standup is moved to 10:30 for tomorrow due to a schedule conflict."
+    "body": "Hi team,\n\nDue to a scheduling conflict with the vendor audit meeting, the daily standup for tomorrow (Nov 11) has been moved to 10:30 AM instead of the usual 10:00 AM.\n\nPlease be on time."
   }
 ]

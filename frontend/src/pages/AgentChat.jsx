@@ -8,45 +8,27 @@ export default function AgentChat() {
   const [query, setQuery] = useState("");
   const [loading, setLoading] = useState(false);
 
-  // Load inbox on mount
   useEffect(() => {
     loadInbox().then(setEmails);
   }, []);
 
-  // ---- CLEAN FORMATTER FOR ALL RESPONSES ----
   function formatResponse(res) {
     if (!res) return "No response.";
-
     const r = res.response;
 
-    // 1️⃣ Draft: {subject, body}
-    if (res.type === "draft" && r?.subject && r?.body) {
+    if (res.type === "draft" && r?.subject && r?.body)
       return `Subject: ${r.subject}\n\n${r.body}`;
-    }
 
-    // 2️⃣ Summary, Custom → plain string
-    if (typeof r === "string") {
-      return r;
-    }
-
-    // 3️⃣ Summary wrapped inside { response: "text" }
-    if (typeof r === "object" && typeof r.response === "string") {
+    if (typeof r === "string") return r;
+    if (typeof r === "object" && typeof r.response === "string")
       return r.response;
-    }
+    if (res.type === "global" && typeof r === "string") return r;
 
-    // 4️⃣ Global inbox summary → string
-    if (res.type === "global" && typeof r === "string") {
-      return r;
-    }
-
-    // Fallback
     return JSON.stringify(r, null, 2);
   }
 
-  // ---- SEND QUERY TO BACKEND ----
   async function send() {
     if (!query.trim()) return;
-
     setLoading(true);
 
     try {
@@ -56,26 +38,31 @@ export default function AgentChat() {
       });
 
       const answer = formatResponse(res);
-
       setMessages([{ q: query, a: answer }, ...messages]);
       setQuery("");
     } catch {
-      setMessages([{ q: query, a: "Error contacting the agent." }, ...messages]);
+      setMessages([
+        { q: query, a: "Error contacting the agent." },
+        ...messages,
+      ]);
     }
-
     setLoading(false);
   }
 
   return (
-    <div>
-      <h2 className="text-4xl font-extrabold">Email Agent Chat</h2>
+    <div className="bg-neutral-100 p-6 rounded-lg border border-gray-200 shadow-sm min-h-[85vh]">
+      {/* PAGE TITLE */}
+      <h2 className="text-3xl font-bold text-gray-900">Email Agent Chat</h2>
+      <p className="text-gray-500 text-sm mt-1">
+        Chat directly with your AI email agent.
+      </p>
 
-      <div className="grid grid-cols-3 gap-6 mt-6">
-
-        {/* LEFT PANEL — Email list */}
-        <div className="col-span-1 bg-black/40 rounded p-4">
+      {/* MAIN GRID */}
+      <div className="grid grid-cols-1 md:grid-cols-3 gap-6 mt-6">
+        {/* LEFT PANEL */}
+        <div className="bg-white border border-gray-200 rounded-md p-4 h-[70vh] overflow-y-auto">
           <button
-            className="w-full p-2 bg-teal-800 rounded"
+            className="w-full p-3 bg-blue-600 text-white rounded-md shadow hover:bg-blue-700"
             onClick={() => {
               setSelected(null);
               setMessages([]);
@@ -91,59 +78,68 @@ export default function AgentChat() {
                 setSelected(e);
                 setMessages([]);
               }}
-              className="w-full mt-2 p-2 rounded hover:bg-white/10 text-left"
+              className={`w-full mt-2 p-3 rounded-md text-left border border-gray-300 hover:bg-blue-50 transition
+                ${
+                  selected?.id === e.id
+                    ? "bg-blue-100 border-blue-400"
+                    : "bg-white"
+                }`}
             >
-              {e.subject}
+              <div className="font-semibold text-gray-800">{e.subject}</div>
+              <div className="text-xs text-gray-500">{e.sender}</div>
             </button>
           ))}
         </div>
 
-        {/* RIGHT PANEL — Chat window */}
-        <div className="col-span-2 bg-black/20 p-6 rounded min-h-[60vh] flex flex-col">
-
-          <div className="flex-1 overflow-auto space-y-4">
-
-            {/* Show selected email */}
+        {/* RIGHT PANEL */}
+        <div className="md:col-span-2 bg-white border border-gray-200 p-6 rounded-md flex flex-col min-h-[70vh]">
+          {/* CHAT SCROLL AREA */}
+          <div className="flex-1 overflow-y-auto space-y-4 pr-2">
             {selected && (
-              <div className="bg-white/5 p-4 rounded border border-slate-700">
-                <div className="text-xl font-bold text-cyan-300">{selected.subject}</div>
-                <div className="mt-2 text-slate-300 whitespace-pre-wrap">
+              <div className="bg-gray-100 border border-gray-300 p-4 rounded-md">
+                <div className="text-lg font-bold text-gray-900">
+                  {selected.subject}
+                </div>
+                <div className="mt-2 text-gray-700 whitespace-pre-wrap">
                   {selected.body}
                 </div>
               </div>
             )}
 
-            {/* Chat messages */}
             {messages.map((m, i) => (
-              <div key={i} className="bg-white/5 p-4 rounded">
-                <div className="font-semibold">You: {m.q}</div>
-
-                <pre className="mt-2 text-slate-300 whitespace-pre-wrap">
+              <div
+                key={i}
+                className="bg-gray-100 p-4 border border-gray-300 rounded-md shadow-sm"
+              >
+                <div className="font-semibold text-gray-800">You: {m.q}</div>
+                <pre className="mt-2 text-gray-700 whitespace-pre-wrap">
                   {m.a}
                 </pre>
               </div>
             ))}
 
-            {/* Empty state */}
-            {!selected && messages.length === 0 && (
-              <p className="text-center text-slate-500 mt-20">
+            {messages.length === 0 && !selected && (
+              <p className="text-center text-gray-400 mt-20">
                 Start a conversation…
               </p>
             )}
-
           </div>
 
-          {/* Input box */}
+          {/* INPUT AREA */}
           <div className="mt-4 flex gap-3">
             <input
               value={query}
               onChange={(e) => setQuery(e.target.value)}
-              className="flex-1 p-3 rounded bg-black/30 border border-slate-700"
+              onKeyDown={(e) => {
+                if (e.key === "Enter") send();
+              }}
+              className="flex-1 p-3 rounded-md bg-gray-50 border border-gray-300 
+             focus:ring-2 focus:ring-blue-500 outline-none"
               placeholder="Ask anything…"
             />
 
             <button
-              className="px-4 py-2 bg-cyan-600 rounded flex items-center justify-center w-20"
+              className="px-4 py-2 bg-blue-600 text-white rounded-md shadow hover:bg-blue-700 w-24 flex items-center justify-center"
               onClick={send}
               disabled={loading}
             >
@@ -155,7 +151,6 @@ export default function AgentChat() {
             </button>
           </div>
         </div>
-
       </div>
     </div>
   );

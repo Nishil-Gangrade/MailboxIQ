@@ -1,65 +1,46 @@
 import toast from "react-hot-toast";
-import { agentQuery } from "../utils/api";
+import { agentQuery, createDraft } from "../utils/api";
 import Spinner from "../components/Spinner";
 import React, { useState, useEffect } from "react";
 
 export default function EmailView({ email }) {
-  const [loading, setLoading] = useState(false);
+  const [active, setActive] = useState(null); 
   const [text, setText] = useState("");
   const [tasks, setTasks] = useState(null);
 
   useEffect(() => {
     setText("");
     setTasks(null);
+    setActive(null);
   }, [email.id]);
 
-  // --------------------------------------------------
-  // AGENT HANDLER
-  // --------------------------------------------------
   async function askAgent(instruction) {
-    setLoading(true);
+    setActive(instruction);
     setText("");
     setTasks(null);
 
     try {
-      const res = await agentQuery({
-        email_id: email.id,
-        instruction,
-      });
-
-      console.log("AGENT RAW RESPONSE =>", res);
-
-      // Backend now returns FLAT:
-      // { status, type, response, data? }
+      const res = await agentQuery({ email_id: email.id, instruction });
       const { type, response, data } = res;
 
       if (type === "summary" || type === "custom" || type === "global") {
         setText(response);
-      }
-
-      else if (type === "tasks") {
+      } else if (type === "tasks") {
         setTasks(data || []);
-      }
-
-      else if (type === "draft") {
-        const formatted = `Subject: ${response.subject}\n\n${response.body}`;
-        setText(formatted);
+      } else if (type === "draft") {
+        setText(`Subject: ${response.subject}\n\n${response.body}`);
       }
 
       toast.success("Agent response ready");
     } catch (e) {
-      console.error(e);
       toast.error("Something went wrong");
     }
 
-    setLoading(false);
+    setActive(null);
   }
 
-  // --------------------------------------------------
-  // GENERATE DRAFT
-  // --------------------------------------------------
   async function generateDraft() {
-    setLoading(true);
+    setActive("draft");
 
     try {
       const res = await agentQuery({
@@ -67,68 +48,67 @@ export default function EmailView({ email }) {
         instruction: "draft a reply",
       });
 
-      console.log("DRAFT RAW =>", res);
-
       const { response } = res;
+      setText(`Subject: ${response.subject}\n\n${response.body}`);
 
-      const draftText = `Subject: ${response.subject}\n\n${response.body}`;
-      setText(draftText);
+      await createDraft({
+        email_id: email.id,
+        subject: response.subject,
+        body: response.body,
+        suggested_followups: [],
+      });
 
-      toast.success("Draft generated");
+      toast.success("Draft saved");
     } catch (e) {
-      console.error(e);
       toast.error("Failed to generate draft");
     }
 
-    setLoading(false);
+    setActive(null);
   }
 
-  // --------------------------------------------------
-  // UI
-  // --------------------------------------------------
   return (
-    <div>
-      <h2 className="text-2xl font-bold">{email.subject}</h2>
-      <p className="text-sm text-slate-400">{email.sender}</p>
+    <div className="p-6 bg-white">
 
-      <p className="mt-4">{email.body}</p>
+      <h2 className="text-2xl font-bold text-gray-900">{email.subject}</h2>
+      <p className="text-sm text-gray-500">{email.sender}</p>
+      <p className="mt-4 text-gray-800">{email.body}</p>
 
-      <div className="flex gap-3 mt-5">
+      <div className="flex gap-3 mt-6">
 
-        {/* FIXED INSTRUCTIONS */}
         <button
-          onClick={() => askAgent("summarize")}
-          className="bg-cyan-600 px-4 py-2 rounded flex items-center gap-2"
+          onClick={() => askAgent("summary")}
+          className="px-4 py-2 bg-blue-700 text-white rounded-md shadow hover:bg-blue-600 flex items-center gap-2"
         >
-          {loading && <Spinner />} Summarize
+          {active === "summary" && <Spinner />} Summarize
         </button>
 
         <button
           onClick={() => askAgent("extract tasks")}
-          className="bg-purple-600 px-4 py-2 rounded flex items-center gap-2"
+          className="px-4 py-2 bg-green-700 text-white rounded-md shadow hover:bg-green-600 flex items-center gap-2"
         >
-          {loading && <Spinner />} What tasks?
+          {active === "extract tasks" && <Spinner />} What tasks?
         </button>
 
         <button
           onClick={generateDraft}
-          className="bg-rose-600 px-4 py-2 rounded flex items-center gap-2"
+          className="px-4 py-2 bg-red-500 text-white rounded-md shadow hover:bg-red-600 flex items-center gap-2"
         >
-          {loading && <Spinner />} Generate Draft
+          {active === "draft" && <Spinner />} Generate Draft
         </button>
+
       </div>
 
       {(text || tasks) && (
-        <div className="mt-6 bg-black/40 p-4 rounded border border-slate-700">
-          <h3 className="text-cyan-300 font-semibold mb-2">Agent Response</h3>
+        <div className="mt-6 border border-gray-300 bg-slate-100 p-4 rounded-md shadow-sm">
+          <h3 className="font-semibold text-black mb-2">Agent Response</h3>
 
           {Array.isArray(tasks) ? (
-            <ul className="space-y-2 text-slate-200 text-sm">
+            <ul className="space-y-2 text-gray-800 text-sm">
               {tasks.map((t, i) => (
-                <li key={i} className="border-b border-slate-700 pb-2">
+                <li key={i} className="border-b border-gray-200 pb-2">
                   • {t.task}
                   {t.deadline && (
-                    <span className="text-yellow-300 ml-2">
+                    <span className="text-red-600 ml-1">
                       (Deadline: {t.deadline})
                     </span>
                   )}
@@ -136,7 +116,7 @@ export default function EmailView({ email }) {
               ))}
             </ul>
           ) : (
-            <pre className="whitespace-pre-wrap text-slate-200 text-sm">
+            <pre className="whitespace-pre-wrap text-gray-800 text-sm">
               {text}
             </pre>
           )}

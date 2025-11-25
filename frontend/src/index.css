@@ -2,8 +2,9 @@
 @tailwind components;
 @tailwind utilities;
 body {
-  background: radial-gradient(circle at top left, #0f172a, #020617);
+  background-color: #ffffff;
 }
+
 
 button:hover {
   filter: brightness(1.15);
@@ -15,6 +16,6 @@ button:hover {
 }
 
 *::-webkit-scrollbar-thumb {
-  background: #334155;
+  background: #D2D7DF;
   border-radius: 8px;
 }

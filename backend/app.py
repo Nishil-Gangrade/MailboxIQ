@@ -30,9 +30,7 @@ def get_inbox():
 
 @app.route("/inbox/load", methods=["POST"])
 def load_inbox():
-    # re-load packaged inbox.json into processed and return inbox
     inbox = store.read_json("inbox.json")
-    # clear processed outputs
     store.write_json("processed.json", [])
     return jsonify({"loaded": len(inbox), "inbox": inbox})
 
@@ -46,7 +44,7 @@ def get_prompts():
 def update_prompts():
     body = request.json or {}
     prompts = store.read_json("prompts.json")
-    prompts.update(body)  # merge updates
+    prompts.update(body)  
     store.write_json("prompts.json", prompts)
     return jsonify({"status": "ok", "prompts": prompts})
 
@@ -124,6 +122,21 @@ def create_draft():
     drafts.insert(0, draft)
     store.write_json("drafts.json", drafts)
     return jsonify({"status": "ok", "draft": draft})
+@app.route("/drafts", methods=["PUT"])
+def update_draft():
+    body = request.json or {}
+    drafts = store.read_json("drafts.json") or []
+
+    updated = []
+    for d in drafts:
+        if d.get("id") == body.get("id"):
+            d["subject"] = body.get("subject", d["subject"])
+            d["body"] = body.get("body", d["body"])
+        updated.append(d)
+
+    store.write_json("drafts.json", updated)
+    return jsonify({"status": "ok", "drafts": updated})
+
 
 @app.route("/processed", methods=["GET"])
 def get_processed():

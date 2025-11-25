@@ -14,7 +14,6 @@ export async function apiPost(path, body = {}) {
   return res.json();
 }
 
-/* API functions */
 
 export const loadInbox = () => apiGet("/inbox");
 
@@ -35,3 +34,12 @@ export const getDrafts = () => apiGet("/drafts");
 export const createDraft = (payload) => apiPost("/drafts", payload);
 
 export const getProcessed = () => apiGet("/processed");
+
+export const updateDraft = async (payload) => {
+  const res = await fetch(`${API_BASE}/drafts`, {
+    method: "PUT",
+    headers: { "Content-Type": "application/json" },
+    body: JSON.stringify(payload),
+  });
+  return res.json();
+};

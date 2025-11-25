@@ -1,1 +1,143 @@
-[]
+[
+  {
+    "email_id": "1",
+    "category": "Important",
+    "action_items": [
+      {
+        "task": "Merge feature branch X into the main codebase",
+        "deadline": "2023-11-18"
+      },
+      {
+        "task": "Confirm time estimates for the merge effort",
+        "deadline": "2023-11-11"
+      },
+      {
+        "task": "Update all unit and integration test cases",
+        "deadline": null
+      },
+      {
+        "task": "Prepare regression scenarios",
+        "deadline": null
+      },
+      {
+        "task": "Assign code reviewers",
+        "deadline": "2023-11-13"
+      }
+    ]
+  },
+  {
+    "email_id": "2",
+    "category": "Important",
+    "action_items": []
+  },
+  {
+    "email_id": "3",
+    "category": "Important",
+    "action_items": [
+      {
+        "task": "submit your timesheets",
+        "deadline": "2025-11-14"
+      }
+    ]
+  },
+  {
+    "email_id": "4",
+    "category": "Important",
+    "action_items": [
+      {
+        "task": "RSVP",
+        "deadline": "2023-11-20"
+      }
+    ]
+  },
+  {
+    "email_id": "5",
+    "category": "Important",
+    "action_items": [
+      {
+        "task": "Propose 2-3 available time slots for a 30-minute sync to finalize product roadmap priorities for the December sprint",
+        "deadline": "2023-11-13"
+      }
+    ]
+  },
+  {
+    "email_id": "6",
+    "category": "Spam",
+    "action_items": []
+  },
+  {
+    "email_id": "7",
+    "category": "To-Do",
+    "action_items": [
+      {
+        "task": "As part of milestone 2 delivery, please ensure the following before Nov 15:",
+        "deadline": null
+      },
+      {
+        "task": "Reach out if you need support or deadline adjustments",
+        "deadline": null
+      }
+    ]
+  },
+  {
+    "email_id": "8",
+    "category": "Important",
+    "action_items": []
+  },
+  {
+    "email_id": "9",
+    "category": "Important",
+    "action_items": [
+      {
+        "task": "Share latest application logs",
+        "deadline": null
+      },
+      {
+        "task": "Share reproduction steps or a short video",
+        "deadline": null
+      },
+      {
+        "task": "Share environment details (OS/version)",
+        "deadline": null
+      }
+    ]
+  },
+  {
+    "email_id": "10",
+    "category": "Important",
+    "action_items": [
+      {
+        "task": "Review PR #432 and leave comments",
+        "deadline": "2023-11-10"
+      }
+    ]
+  },
+  {
+    "email_id": "11",
+    "category": "Important",
+    "action_items": [
+      {
+        "task": "Confirm receipt of the invoice",
+        "deadline": null
+      },
+      {
+        "task": "Confirm expected payment date",
+        "deadline": null
+      },
+      {
+        "task": "Confirm whether any additional documents are required for processing",
+        "deadline": null
+      }
+    ]
+  },
+  {
+    "email_id": "12",
+    "category": "Important",
+    "action_items": [
+      {
+        "task": "Be on time for the daily standup",
+        "deadline": null
+      }
+    ]
+  }
+]

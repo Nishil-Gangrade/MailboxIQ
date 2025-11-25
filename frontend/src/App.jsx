@@ -9,10 +9,11 @@ export default function App() {
   const [view, setView] = useState("inbox");
 
   return (
-    <div className="flex bg-gradient-to-br from-gray-900 to-black text-slate-100 min-h-screen">
+<div className="flex bg-white text-gray-900 min-h-screen">
       <Sidebar view={view} setView={setView} />
 
-      <main className="flex-1 p-8 overflow-auto">
+      <main className="flex-1 p-8 overflow-y-auto h-screen">
+
         {view === "inbox" && <Inbox />}
         {view === "prompts" && <PromptBrain />}
         {view === "agent" && <AgentChat />}

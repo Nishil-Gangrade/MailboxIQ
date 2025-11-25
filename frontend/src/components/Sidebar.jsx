@@ -1,38 +1,53 @@
 import React from "react";
+import logo from "../../../assets/logo.png";
+
+import { Inbox, Brain, MessageSquare, FileText } from "lucide-react";
 
 export default function Sidebar({ view, setView }) {
   const navItems = [
-    { id: "inbox", label: "Inbox", icon: "📥" },
-    { id: "prompts", label: "Prompt Brain", icon: "🧠" },
-    { id: "agent", label: "Agent Chat", icon: "💬" },
-    { id: "drafts", label: "Drafts", icon: "📝" },
+    { id: "inbox", label: "Inbox", icon: <Inbox size={20} /> },
+    { id: "prompts", label: "Prompt Brain", icon: <Brain size={20} /> },
+    { id: "agent", label: "Agent Chat", icon: <MessageSquare size={20} /> },
+    { id: "drafts", label: "Drafts", icon: <FileText size={20} /> },
   ];
 
   return (
-    <aside className="w-64 h-screen bg-black/80 border-r border-slate-800 p-6 flex flex-col">
-      <div>
-        <h1 className="text-3xl font-extrabold text-cyan-400">MailboxIQ</h1>
-        <p className="text-slate-400 text-sm">AI-Powered Email Agent</p>
+    <aside className="w-64 h-screen bg-white   p-6 flex flex-col">
+
+      {/* LOGO SECTION */}
+      <div className="flex items-center gap-3 mb-4 cursor-pointer select-none">
+        <img src={logo} className="w-16
+         h-14" />
+
+        <h1 className="text-l font-semibold text-gray-800">MailboxIQ</h1>
       </div>
 
-      <nav className="mt-8 flex flex-col gap-3">
+      {/* NAV ITEMS */}
+      <nav className="flex flex-col gap-1 mt-4">
         {navItems.map((item) => (
           <button
             key={item.id}
             onClick={() => setView(item.id)}
-            className={`flex items-center gap-3 px-4 py-3 rounded-md text-left ${
-              view === item.id
-                ? "bg-gradient-to-r from-cyan-700 to-purple-700 text-white"
-                : "text-slate-300 hover:bg-white/10"
-            }`}
+            className={`flex items-center justify-between px-4 py-3 rounded-lg transition-all text-left group
+              ${
+                view === item.id
+                  ? "bg-blue-100 text-blue-700 font-semibold"
+                  : "text-gray-700 hover:bg-blue-50"
+              }
+            `}
           >
-            <span className="text-xl">{item.icon}</span>
-            <span>{item.label}</span>
+            <div className="flex items-center gap-3">
+              <span className="text-gray-700 group-hover:text-blue-700">
+                {item.icon}
+              </span>
+              <span>{item.label}</span>
+            </div>
           </button>
         ))}
       </nav>
 
-      <div className="mt-auto text-xs text-slate-600">
+      {/* FOOTER */}
+      <div className="mt-auto text-xs text-gray-500">
         Built for Assignment • 2025
       </div>
     </aside>

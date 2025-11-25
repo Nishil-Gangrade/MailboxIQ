@@ -1,45 +1,25 @@
 [
   {
-    "id": "5",
-    "email_id": "1",
-    "subject": null,
-    "body": null,
-    "suggested_followups": [],
-    "meta": {}
-  },
-  {
-    "id": "4",
-    "email_id": "1",
-    "subject": "Re: Action required: Q4 feature merge and timeline",
-    "body": {
-      "body": "Hi,\n\nThanks for the email. Will check and get back.\n\nRegards,",
-      "subject": "Re: Action required: Q4 feature merge and timeline",
-      "suggested_followups": []
-    },
-    "suggested_followups": [],
-    "meta": {}
-  },
-  {
     "id": "3",
-    "email_id": "1",
-    "subject": "Re: Action required: Q4 feature merge and timeline",
-    "body": "Hi,\n\nThanks for the email. Will check and get back.\n\nRegards,",
+    "email_id": "4",
+    "subject": "Re: Invitation: Local hackathon (Nov 25)",
+    "body": "Okay, here are a few options depending on whether you can attend, cannot attend, or have a question.\n\n---\n\n**Option 1: You ARE able to attend and are excited.**\n\nSubject: RSVP - Local Community Hackathon - [Your Name]\n\nDear Team,\n\nThank you so much for the invitation to the annual Local Community Hackathon! I'm thrilled to participate.\n\nThe tracks this year sound incredibly engaging, especially [mention a specific track you like, e.g., \"AI for Social Good\" or \"Sustainability through Tech,\" or just say \"all of them\"]. I'm happy to confirm my attendance on November 25th.\n\nPlease let me know if there's any other information you need from my end. I'm really looking forward to a day of innovation and collaboration!\n\nBest regards,\n\n[Your Name]\n[Optional: Your Email/Phone Number]\n\n---\n\n**Option 2: You ARE able to attend, but have a slight preference for a track or team type (optional).**\n\nSubject: RSVP - Local Community Hackathon - [Your Name]\n\nDear Team,\n\nThank you for the invitation to the annual Local Community Hackathon! I'm excited to join.\n\nI'm definitely in for November 25th. The tracks all sound fantastic; I'm particularly interested in contributing to projects under the [e.g., \"IoT in Daily Life\"] theme, if possible, but I'm open to anything!\n\nLooking forward to a great day of hacking for the community!\n\nBest regards,\n\n[Your Name]\n\n---\n\n**Option 3: You are NOT able to attend.**\n\nSubject: Re: You're invited to our annual Local Community Hackathon!\n\nDear Team,\n\nThank you so much for the invitation to the Local Community Hackathon. It sounds like a fantastic event with very interesting tracks.\n\nUnfortunately, I won't be able to participate this year due to a prior commitment on November 25th. I'm genuinely disappointed to miss out.\n\nI wish you and all the participants a very successful and inspiring day! Please keep me in mind for future events.\n\nBest regards,\n\n[Your Name]\n\n---\n\n**Option 4: You have a question before you can RSVP.**\n\nSubject: Query regarding Local Community Hackathon - [Your Name]\n\nDear Team,\n\nThank you for the invitation to the annual Local Community Hackathon! It sounds like a really engaging event, and I'm very interested in participating.\n\nBefore I RSVP, I had a quick question: [State your question, e.g., \"Will there be any specific hardware provided for the IoT track?\" or \"Is there an option to attend only part of the day if full attendance isn't possible?\" or \"Are teams pre-assigned, or can we form them on the day?\"].\n\nOnce I have a bit more information, I'd be happy to confirm my availability by November 20th.\n\nThanks again for the invitation!\n\nBest regards,\n\n[Your Name]",
     "suggested_followups": [],
     "meta": {}
   },
   {
-    "id": "2",
+    "id": "7",
     "email_id": "1",
     "subject": "Re: Action required: Q4 feature merge and timeline",
-    "body": "Hi,\n\nThanks for the email. Will check and get back.\n\nRegards,",
+    "body": "Here are a few options for a reply, ranging from concise to slightly more detailed:\n\n**Option 1: Concise and Direct**\n\nHi [Sender's Name, if known, otherwise \"Team\"],\n\nThanks for the update and the clear timeline.\n\nWe will prioritize getting the time estimates for the merge effort for feature branch X submitted by EOD tomorrow, November 11th.\n\nWe've noted the requirements for updating unit/integration tests, preparing regression scenarios, and assigning code reviewers by November 13th. We're aligned on the November 18th target for the merge.\n\nWe'll be sure to communicate immediately if any blockers arise.\n\nBest regards,\n\n[Your Name/Team Name]\n\n---\n\n**Option 2: Slightly More Detailed (if you want to show internal planning)**\n\nHi [Sender's Name, if known, otherwise \"Team\"],\n\nThanks for confirming the deadline for feature branch X's merge into main by November 18th, aligning with the Q4 release schedule.\n\nWe are currently gathering the necessary input and will have our time estimates for the merge effort submitted by EOD tomorrow, November 11th.\n\nWe've also confirmed the following actions internally:\n*   Updating all relevant unit and integration test cases.\n*   Preparing comprehensive regression scenarios.\n*   Assigning code reviewers by the November 13th deadline.\n\nWe're on track and will proactively flag any potential blockers as soon as they emerge.\n\nThanks,\n\n[Your Name/Team Name]\n\n---\n\n**Option 3: If you need to quickly assign someone to gather estimates**\n\nHi [Sender's Name, if known, otherwise \"Team\"],\n\nThanks for the clear instructions on merging feature branch X by November 18th.\n\n[Team Lead/Developer Name] will be collating the time estimates for the merge effort and will send those over by EOD tomorrow, November 11th.\n\nWe've also noted the requirements for test updates, regression prep, and reviewer assignments by Nov 13th, and we'll ensure these are actioned.\n\nWe're committed to the timeline and will inform you if any blockers come up.\n\nRegards,\n\n[Your Name/Team Name]\n\n---\n\n**Choose the option that best fits your team's communication style and whether you want to name specific individuals in the reply.** Remember to replace `[Sender's Name, if known, otherwise \"Team\"]` and `[Your Name/Team Name]`.",
     "suggested_followups": [],
     "meta": {}
   },
   {
-    "id": "1",
-    "email_id": "1",
-    "subject": "Re: Action required: Q4 feature merge and timeline",
-    "body": "Hi,\n\nThanks for the email. Will check and get back.\n\nRegards,",
+    "id": "6",
+    "email_id": "2",
+    "subject": "Re: Weekly Dev Newsletter: Top 10 libraries",
+    "body": "Subject: Re: Your weekly development newsletter (Week of Nov 8, 2025)\n\nHi there  ,\n\nThanks for sending over the latest weekly development newsletter! The topics look really interesting, especially the 'Performance tips for React Server Components' and the 'deep-dive tutorial on WebAssembly in 2025'. I'm looking forward to diving into those.\n\nJust a quick heads-up – I noticed the date on this edition is for the 'Week of Nov 8, 2025.' Is this an advanced preview, or perhaps a typo in the year?\n\nThanks again for the valuable content!\n\nBest regards,\n\n[Your Name]",
     "suggested_followups": [],
     "meta": {}
   }
