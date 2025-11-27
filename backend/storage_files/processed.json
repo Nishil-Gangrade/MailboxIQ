@@ -27,7 +27,7 @@
   },
   {
     "email_id": "2",
-    "category": "Important",
+    "category": "Newsletter",
     "action_items": []
   },
   {
@@ -35,17 +35,17 @@
     "category": "Important",
     "action_items": [
       {
-        "task": "submit your timesheets",
-        "deadline": "2025-11-14"
+        "task": "submit timesheets",
+        "deadline": null
       }
     ]
   },
   {
     "email_id": "4",
-    "category": "Important",
+    "category": "To-Do",
     "action_items": [
       {
-        "task": "RSVP",
+        "task": "RSVP for the Hackathon",
         "deadline": "2023-11-20"
       }
     ]
@@ -55,8 +55,8 @@
     "category": "Important",
     "action_items": [
       {
-        "task": "Propose 2-3 available time slots for a 30-minute sync to finalize product roadmap priorities for the December sprint",
-        "deadline": "2023-11-13"
+        "task": "Please propose 2–3 available time slots between Nov 10–13",
+        "deadline": null
       }
     ]
   },
@@ -70,23 +70,31 @@
     "category": "To-Do",
     "action_items": [
       {
-        "task": "As part of milestone 2 delivery, please ensure the following before Nov 15:",
+        "task": "Submit the working module demo",
         "deadline": null
       },
       {
-        "task": "Reach out if you need support or deadline adjustments",
+        "task": "Update the complete technical documentation",
+        "deadline": null
+      },
+      {
+        "task": "Share the test dataset and validation notes",
+        "deadline": null
+      },
+      {
+        "task": "Confirm API endpoint changes with the integration team",
         "deadline": null
       }
     ]
   },
   {
     "email_id": "8",
-    "category": "Important",
+    "category": "Newsletter",
     "action_items": []
   },
   {
     "email_id": "9",
-    "category": "Important",
+    "category": "To-Do",
     "action_items": [
       {
         "task": "Share latest application logs",
@@ -107,35 +115,31 @@
     "category": "Important",
     "action_items": [
       {
-        "task": "Review PR #432 and leave comments",
+        "task": "Review PR #432",
+        "deadline": "2023-11-10"
+      },
+      {
+        "task": "Leave comments on PR #432",
         "deadline": "2023-11-10"
       }
     ]
   },
   {
     "email_id": "11",
-    "category": "Important",
+    "category": "To-Do",
     "action_items": [
       {
-        "task": "Confirm receipt of the invoice",
-        "deadline": null
-      },
-      {
-        "task": "Confirm expected payment date",
-        "deadline": null
-      },
-      {
-        "task": "Confirm whether any additional documents are required for processing",
+        "task": "Please confirm:",
         "deadline": null
       }
     ]
   },
   {
     "email_id": "12",
-    "category": "Important",
+    "category": "To-Do",
     "action_items": [
       {
-        "task": "Be on time for the daily standup",
+        "task": "Please be on time",
         "deadline": null
       }
     ]
